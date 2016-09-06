@@ -1,0 +1,29 @@
+Dokumentation zum Python-Script Bagger-GUI v0.0.1.2
+
+Das folgende Dokument gibt einen Grundlegenden Überblick über die Funktionen des Python 3.5 basierenden Programms Bagger_GUI in der Version 0.0.1.2. und die Planung zukünftiger Implementierungen.
+
+1. Systemkompatibilität
+	auf Grund der Verwendung der Programmiersprache Python ist das Programm grundsätzlich auf jedem Betriebssystem mittel Python-Interpreter lauffähig. Die Verwendung des Bagger Controllmuduls zum schalten Der GPIO-Pins des RaspbarryPi and Arduinos beschränkt die Systemkompatibilität auf die Microcomputerserie RaspbarryPi.
+
+2. Graphische Darstellung
+	Zur Bildung des Graphical User Interface wurde das TK basierende Grafik Oberflächen Modulierungs-Tool in Python, welche als Tkinter (TK-interface) bekannt ist, verwendet.
+Das Design der Oberfläche basiert auf einer Präsentation, welche ein groben Layout Vorschlag enthält.
+Die Grafiken zum anzeigen des Betriebszustandes sowie der aktuellen Steuerungsbelegung, werden mittels Python Image Libery (PIL) – Tools skaliert und im Ordner Temp in skalierter Form gespeichert um darauf zugreifen zu können.
+
+3. Implementierte Funktionen
+3.1 Log-Funktion
+Das Skript enthält ein Funktion, welche System Änderungen und Softwarefehler während des Programmverlaufs (momentan die Änderung des Eingabemediums/Controllers, den Skript-Start und Beendigung)  in einem '.txt'-File abspeichert.  Der Log zeichnet dabei den Zeitpunkt, Art und Beschreibung des Ereignisses auf. Zur Umsetzung diese Funktion wird das Python interne logging-Tool verwendet. Dieses erstellt in dem Pfad „/home/ubuntu/Bagger/Steuerungskonzept/log“ eine Datei des Formats '.txt', deren Name setzt ich aus dem Zeitpunkt des Programmstarts (angeben im Format DD-MM-YYYY_HH-mm) und dem Präfix „bagger_GUI-log_“ zusammen.
+
+3.2 Funktion zur Änderung des Controllers
+wie Bereits in 3.1 erwähnt enthält das Programm eine Funktion zur Änderung des Eingabemediums, welche den Namen 'change_controler()'.
+Diese Funktion ändert den Wert der Globalen Variable 'controler_state' von null zu eins, bzw. umgekehrt, wenn sie durch die Betätigung des 'controler'-Buttons in der GUI aufgerufen wird. Der dabei Ausgewählte Controller wird mittels Message-box dem Benutzer mitgeteilt.
+
+3.3 Impementierung der Funktionen des ControllModuls
+Die Funktionen des Programmmoduls Bagger Controll Modul v0.2 wurden vollständig importiert und sind über das Dropdown-Menue Wartung steuerbar.
+
+4.Ausstehende Funktionen
+4.1 Wahlmöglichkeit des Betriebsmodus
+die Radiobuttons, welche für Wahl der einzelnen Betriebsmodi 'baggern', 'schreiten vorn', 'schreiten hinten' und 'fahren' gedacht sind, sind bereits in der Grafischen Oberfläche enthalten, jedoch weitere Programm Implementierungen sind noch ausstehend.
+
+4.2  Wartungs-Sektor
+ebenso die Implementierung des Wartungsbereiches, mittels dessen der Zustand des Systems überprüft werden können soll, sowie erweiterte Einstellungen vorgenommen werden können sollen, soll noch erweitert werden.

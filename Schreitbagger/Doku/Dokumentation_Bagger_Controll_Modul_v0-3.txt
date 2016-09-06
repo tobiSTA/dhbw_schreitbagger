@@ -1,0 +1,53 @@
+Dokumentation zum Python-Script Bagger-Controll-Modul v0.3
+
+Das folgende Dokument gibt einen Grundlegenden Überblick über die Funktionen des Python 3.5 basierenden Programms Bagger_Controll_Modul in der Version 0.2 und die Planung zukünftiger Implementierungen.
+
+1. Systemkompatibilität
+	auf Grund der Verwendung der Programmiersprache Python ist das Programm grundsätzlich auf jedem Betriebssystem mittels Python-Interpreter lauffähig. Die Verwenung des Moduls zur steuerung der GPIO-Leiste aus dem RPi- Modul für den Raspberry PI beschränkt die kompatibilität des Programms auf die Microcomputerplatform Raspberry PI und dessen Nachfolger
+
+2. Importierte Module
+	2.1 thread
+Das thread-modul ist ein Teil der Standard mäsigen MOdul-Libery von Python. Die Importierte Funktion start_new_tread dient der erstellung eines neuen Threads neben dem Hauptthread des Programmes und ermöglicht es so multible aufgaben paralel auszuführen.
+
+	2.2 RPi.GPIO
+Das GPIO-Modul aus der RPi-Libery, welche standartmäßig auf dem RaspberryPi in der Python-Libery enthalten ist, wurde eingebunden um die GPIO-Ports des RaspberryPI ansteuern zu können.
+
+	2.3 pygame
+Das pygame-Modul wurde von einer externen Quelle bezogen [http://www.pygame.org/download.shtml]. Das Modul dient in diesem Programm der Auslesung und Auswertung der Controller zur steuerung des Baggers. Eine Vollständige Dokumentation des pygame projekts ist unter http://www.pygame.org/docs/ zu finden.
+
+	2.4 nappy Arduino
+Nappy ist zur vereinfachten Ansteuerung eines Arduino via USB-Kablel gedacht ist, der Arduino Part des unter der MIT-Lizenz über GitHub [https://github.com/nanpy/nanpy] erhältlichen Moduls, umfast die grundsätzlichen funktionen zur ansteuerung der grundfunktionen der Arduino platformen.
+
+3. Implementierte Funktionen
+3.1 horn()
+Die Funktion Schaltet das Relais, welches die Hupe versorgt, am GPIO-Pin 11 für eine Sekunde Aktiv. Anschließend wird das Relais wieder deaktiviert.
+
+3.2 light()
+Die Funktion ändert den Schaltzustand des GPIO-Pinns 13, welcher das Relais für das Arbeitslicht des Baggers schalt.
+
+3.3 Taillight()
+Die Funktion ändert den Schaltzustand des GPIO-Pinns 19, welcher das Relais für das Rücklicht des Baggers schalt.
+
+3.4 FU()
+Die Funktion ändert den Schaltzustand des GPIO-Pinns 15, welcher den Freigabe Zustand des Frequenzumrichters controlliert.
+
+3.5 FU_reset()
+Die Funktion dient zu Zurücksetzen des Frequenzumrichters. Dazu Ändert es für 2sec den Schaltzustand des GPIO-Pins 15.
+
+3.6 Pump()
+Die Funktion ändert den Schaltzustand des GPIO-Pinns 23, welcher das Relais für die Entwässerungspumpe des Wassertanks des Baggers schalt.
+
+3.7 change_controler()
+Die Funktion migrierte von der Bagger_GUI in das Controll-Modul und dient dem Wächsel des Eingabemediums/Controllers.
+
+3.8 Controler_read()
+Die Funktion dient dem Auslesen der Ax-Position der angeschlossenen Controler, wofür eine Funktion des pygame-Moduls genutzt wird. Die Ausgelesenen Werte werden mit der voreingestellten Geschwindigkeit speed multipliziert und in die Liste controler_pos[] eingetragen. Diese Schritte werden in einer dauerschleife ausgefürht und verfügen über ein restart-Delai von (1/acceleration)[s]. Die Funktion wird in einem eigenem Neben-Thread ausgeführt.
+
+3.9 ValveStep(Valve_num)
+Die Funktion gibt einen Step-Befehl, mittels stetzen eines High-Levels auf den Arduino Pin für des jeweilige Ventil [Valve_num], und somit auch auf den Stepp-Eingang des jewiligen Stepper-Drives. Die Zeit eines Follständigen Stepp-Signals ist (1/acceleration)[s], wobei die High-Level-Time und die Return-To-Zero-Time eine Identische Länge aufweisen. Des weiteren wird in Abhängigkeit des jewiligen Direction Pinns die gespeicherte Ventil-Position valve_pos des jeweiligen Ventils um eins Erhöt oder reduziert.
+
+3.10 ValveSetZero(Valve_num)
+Die Funktion dient der Rücksetzung der Ventile auf ihre Nullposition. Dafür wird das Ventil [Valve_num] mittels der ValveStep()-Funktion und einem High-Level auf dem Jeweiligen Direction-pin in den oberen Anschlag gefahren. Daruaf hin wird das Ventil um die Maximal möglichen Stepps [Travel_max], welche das Ventil Bauart bedingt in eine Richtung vollziehen kann, in die Nullage zurück gefahren, dazu wird ValveStep() in Kombintaion mit einem Low-Level auf dem Direktion-Pin. Abschießend wird der Positions-Wertrt des Ventils auf null gestzt.
+
+3.11 ValveSetPos(valve_num)
+Die Funktion zur Anpassung der Position des Ventlis [valve_num] auf die zugehörige Controller-Ax-Position. Dazu wird mittels ValveStep() und einer jeweiligen Beschaltung des zugehörigen Direktion-Pins die Ventilposition inkrementiert bzw. dekrementiert, je nachdem ob die Ventilposition größer oder kleiner der Controlerposition ist. Für den Fall das die Controllerposition 0 ist und der zugehörige wert der ventilposition diesem nicht entspricht, wird die Funktion ValveSetZero() genutzt um das ventil in seine Nullage zu bringen. Diese prozesse laufen innehrhalb der Funktion in einer Dauerschleife ab. Je Ventil wird Die Funktion in je einem eigen Neben-Thread ausgeführt.
