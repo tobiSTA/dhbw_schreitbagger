@@ -1,0 +1,27 @@
+Dokumentation zum Python-Script Bagger-Controll-Modul v0.2
+
+Das folgende Dokument gibt einen Grundlegenden Überblick über die Funktionen des Python 3.5 basierenden Programms Bagger_Controll_Modul in der Version 0.2 und die Planung zukünftiger Implementierungen.
+
+1. Systemkompatibilität
+	auf Grund der Verwendung der Programmiersprache Python ist das Programm grundsätzlich auf jedem Betriebssystem mittel Python-Interpreter lauffähig. Die Verwenung des Moduls zur steuerung der GPIO-Leiste aus dem RPi- Modul für den Raspberry PI beschränkt die kompatibilität des Programms auf die Microcomputerplatform Raspberry PI und dessen Nachfolger
+
+
+3. Implementierte Funktionen
+3.1 horn()
+Die Funktion Schaltet das Relais, welches die Hupe versorgt, am GPIO-Pin 11 für eine Sekunde Aktiv. Anschließend wird das Relais wieder deaktiviert.
+
+3.2 light()
+Die Funktion ändert den Schaltzustand des GPIO-Pinns 13, welcher das Relais für das Arbeitslicht des Baggers schalt.
+
+3.3 Taillight()
+Die Funktion ändert den Schaltzustand des GPIO-Pinns 15, welcher das Relais für das Rücklicht des Baggers schalt.
+
+3.4 FU()
+Die Funktion ändert den Schaltzustand des GPIO-Pinns 17, welcher den Freigabe Zustand des Frequenzumrichters controlliert.
+
+3.5 FU_reset()
+Die Funktion dient zu Zurücksetzen des Frequenzumrichters. Dazu Ändert es für 2sec den Schaltzustand des GPIO-Pins 21.
+
+3.6 Pump()
+Die Funktion ändert den Schaltzustand des GPIO-Pinns 23, welcher das Relais für die Entwässerungspumpe des Wassertanks des Baggers schalt.
+
