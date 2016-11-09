@@ -1,0 +1,5 @@
+2016-03-18 22:28:26,755 : INFO : Start des Moduls Bagger_Controll_Modul
+2016-03-18 22:28:26,756 : INFO : bittime: 0.000010
+2016-03-18 22:28:26,757 : INFO : RaspberryPi GPIO-Ports Initialized
+2016-03-18 22:28:27,181 : INFO : <Joystick object at 0x76caa1a0>
+2016-03-18 22:28:27,241 : INFO : <Joystick object at 0x76caa230>
