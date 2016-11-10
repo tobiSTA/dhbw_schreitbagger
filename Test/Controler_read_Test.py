@@ -5,7 +5,7 @@
 """
 Controll_red-Test
 
-Dieses Modul dient der Überprüfung der Funktionalität des Controlerauslesens Mittels Pygame
+Dieses Modul dient der ÃœberprÃ¼fung der FunktionalitÃ¤t des Controlerauslesens Mittels Pygame
 dazu sollen die Achsen der Controler in einem Logfile Wiedergegeben werden.
 """
 import time
@@ -28,18 +28,18 @@ def Controler_read():   #es werden die Achspositionen ausgelesen und der Speed b
 
 		logging.info("%s\n" %gamepad.get_name)
 		for i in range (gamepad.numaxes):
-		    axes = gamepad.get_axis(i)
+		    	axes = gamepad.get_axis(i)
 			logging.info("   Axe %d %f\n" %i, axes)
 
 		logging.info("%s\n" %JS_1.get_name)
 		for i in range (JS_1.numaxes):
-		    axes = JS_1.get_axis(i)
+		    	axes = JS_1.get_axis(i)
 			logging.info("   Axe %d %f\n" %i, axes)
 
 		logging.info("%s\n" %JS_2.get_name)
-        for i in range (JS_2.numaxes):
-		    axes = JS_2.get_axis(i)
-            logging.info("   Axe %d %f\n" %i, axes)
+        	for i in range (JS_2.numaxes):
+		    	axes = JS_2.get_axis(i)
+            		logging.info("   Axe %d %f\n" %i, axes)
 
 		time.sleep(BitTime)
 
