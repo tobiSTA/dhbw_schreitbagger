@@ -16,29 +16,35 @@ import os
 import datetime
 
 def Controler_read():   #es werden die Achspositionen ausgelesen und der Speed bestimmt.
-        '''
-        Funktion zum Lesen der Axpositionen der Controler 
-        
-        '''
-	global ThreadCount 
-	ThreadCount +=1
+    '''
+    Funktion zum Lesen der Axpositionen der Controler
+    '''
 	
+    global ThreadCount
+	ThreadCount +=1
+
 	for i in range (500):
-		lock.aquire()    
-		   
-		for i in range (gamepad.numaxes):                             
-			logging.info("Pad %f" %gamepad.get_axis(i))
-							 
-		for i in range (JS_1.numaxes):                          
-			logging.info("Pad %f" %JS_1.get_axis(i))
-			
-		for i in range (JS_2.numaxes):                        
-			logging.info("Pad %f" %JS_2.get_axis(i))
+		lock.aquire()
+
+		logging.info("%s\n" %gamepad.get_name)
+		for i in range (gamepad.numaxes):
+		    axes = gamepad.get_axis(i)
+			logging.info("   Axe %d %f\n" %i, axes)
+
+		logging.info("%s\n" %JS_1.get_name)
+		for i in range (JS_1.numaxes):
+		    axes = JS_1.get_axis(i)
+			logging.info("   Axe %d %f\n" %i, axes)
+
+		logging.info("%s\n" %JS_2.get_name)
+        for i in range (JS_2.numaxes):
+		    axes = JS_2.get_axis(i)
+            logging.info("   Axe %d %f\n" %i, axes)
 
 		time.sleep(BitTime)
 
 		lock.release()
-		
+
 	ThreadCount -=1
 
 sdir = ""
@@ -75,8 +81,8 @@ for i in range(pygame.joystick.get_count()):
         	JS_1 = pygame.joystick.Joystick(i)
         	JS_1.init()
         	logging.info(JS_1)
-               
-                    
+
+
         else:
                 JS_2 = pygame.joystick.Joystick(i)
                 JS_2.init()
@@ -85,11 +91,11 @@ for i in range(pygame.joystick.get_count()):
 
 if (JS_2.get_init())
 	logging.info("JS_2 initialisiert")
-	
+
 
 if (JS_1.get_init())
 	logging.info("JS_1 initialisiert")
-	
+
 
 if (gamepad.get_init())
 	logging.info("gamepad initialisiert")
@@ -109,15 +115,3 @@ while ThreadCount != 0:
 pygame.quit()
 
 logging.info("done")
-    
-    
-
-
-
-
-
-
-    
-    
-
-    
