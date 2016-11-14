@@ -24,20 +24,20 @@ def Controler_read():   #es werden die Achspositionen ausgelesen und der Speed b
 	ThreadCount +=1
 
 	for i in range (500):
-		lock.aquire()
+		lock.acquire()
 
 		logging.info("%s\n" %gamepad.get_name)
-		for i in range (gamepad.numaxes):
+		for i in range (gamepad.get_numaxes):
 		    	axes = gamepad.get_axis(i)
 			logging.info("   Axe %d %f\n" %i, axes)
 
 		logging.info("%s\n" %JS_1.get_name)
-		for i in range (JS_1.numaxes):
+		for i in range (JS_1.get_numaxes):
 		    	axes = JS_1.get_axis(i)
 			logging.info("   Axe %d %f\n" %i, axes)
 
 		logging.info("%s\n" %JS_2.get_name)
-        	for i in range (JS_2.numaxes):
+        	for i in range (JS_2.get_numaxes):
 		    	axes = JS_2.get_axis(i)
             		logging.info("   Axe %d %f\n" %i, axes)
 
@@ -102,7 +102,7 @@ if (gamepad.get_init())
 logging.info('Controler Initialized')
 
 
-Controler_read()
+#Controler_read()
 
 logging.info("Reading in Thread")
 
